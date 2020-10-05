@@ -1,0 +1,226 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+	
+	.simple-carousel *{
+		margin:0px;
+		padding:0px;
+	}
+	.simple-carousel{
+		position:relative;
+		margin:0px;
+		padding:0px;
+		overflow:hidden;
+		left:50%;
+		transform:translateX(-50%);
+		width:500px;
+		/*border:1px solid black;*/
+	}
+	.simple-carousel-container{
+		
+		/*width:1000px;*/
+		display:flex;
+		/*justify-content:center;*/
+		/*display:inline;*/
+	}
+
+	.slide{
+		width:500px;
+		display:none;
+	}
+	.slide-next{
+		/*display:flex;*/
+	}
+
+	.slide-view{
+		display:flex;
+		
+	}
+
+	.slide-image>img{
+		width:100%;
+	}
+
+	.slide-from-right{
+		position:relative;
+		display:block;
+		animation-name:slideFromRight;
+		animation-duration:1s;
+	}
+	.slide-from-left{
+		position:relative;
+		display:block;
+		animation-name:slideFromLeft;
+		animation-duration:1s;
+	}
+	.fade-out{
+		animation-name:fadeOut;
+		animation-duration:2s;
+	}
+	.slider-arrows{
+		position:relative;
+		bottom:100px;
+		z-index:20px;
+	}
+	.slider-left-arrow{
+		position:relative;
+		
+	}
+	.slider-right-arrow{
+		position:relative;
+		float:right;
+	}
+	@keyframes slideFromRight{
+		0%{
+			transform:translateX(100%);
+		}
+		100%{
+			transform:translateX(0);
+		}
+	}
+	@keyframes slideFromLeft{
+		0%{
+			transform:translateX(-100%);
+		}
+		100%{
+			transform:translateX(0);
+		}
+	}
+	@keyframes fadeOut{
+		0%{
+			opacity:1;
+		}
+		100%{
+			opacity:0;
+		}
+	}
+</style>		
+	</head>
+	<body>
+<div class="container simple-carousel">
+	<div class="simple-carousel-container">
+		<div class="slide">
+			<div class="">
+				<div class="slide-image">
+					<img src="./coronavirus0.jpg">
+				</div>
+				<div class="slide-title">
+					<h4>abcd</h4>
+				</div>
+			</div>
+		</div>
+		<div class="slide">
+			<div class="">
+				<div class="slide-image">
+					<img src="./indian-Railways.jpg">
+				</div>
+				<div class="slide-title">
+					<h4>abcd</h4>
+				</div>
+			</div>
+		</div>
+		<div class="slide">
+			<div class="">
+				<div class="slide-image">
+					<img src="./pr1.jpg">
+				</div>
+				<div class="slide-title">
+					<h4>abcd</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="slider-arrows">
+		<span class="slider-left-arrow"><i class="fa fa-arrow-left" style="background-color:salmon;padding:10px;opacity:0.5;font-size:25px;border-radius:100%;"></i></span>
+		<span class="slider-right-arrow"><i class="fa fa-arrow-right" style="background-color:salmon;padding:10px;opacity:0.5;font-size:25px;border-radius:100%;"></i></span>
+	</div>
+</div>
+
+<script type="text/javascript">
+	let slides = $('.slide')
+	let currentSlideIndex = 0;
+	let nextSlideIndex = currentSlideIndex+1;
+	let slideTimer;
+
+	slides[currentSlideIndex].classList.add('slide-from-left') 	
+
+	let playSlide = function(){
+		slides[nextSlideIndex].classList.remove('fade-out')
+		slides[nextSlideIndex].classList.add('slide-from-left')
+		// slides[currentSlideIndex].classList.add('fade-out')
+
+		slides[currentSlideIndex].classList.remove('slide-from-left')
+		
+		 if(nextSlideIndex+1==slides.length){
+		 	currentSlideIndex = nextSlideIndex;
+		 	nextSlideIndex = 0;
+		 }
+		 else{ 
+		 	currentSlideIndex = nextSlideIndex;
+		 	nextSlideIndex++;
+		 }
+
+		 // console.log( 'currentSlideIndex'+' '+currentSlideIndex)
+		 // console.log('nextSlideIndex'+' '+nextSlideIndex)
+		 
+		slideTimer = setTimeout(playSlide,4000);
+	}
+
+	$('.simple-carousel').on('mouseenter',function(){
+		clearTimeout(slideTimer);
+	})
+
+	$('.simple-carousel').on('mouseleave',function(){
+		playSlide();
+	})
+
+	$('.slider-left-arrow>i').on('click',function(){
+		console.log("Left")
+	})
+	$('.slider-right-arrow>i').on('click',function(){
+		console.log("Right")
+		slides[currentSlideIndex].classList.remove('slide-from-left')
+		slides[currentSlideIndex].classList.remove('slide-from-right')
+		
+		slides[nextSlideIndex].classList.add('slide-from-left')
+
+		
+
+		if(nextSlideIndex+1==slides.length){
+		 	currentSlideIndex = nextSlideIndex;
+		 	nextSlideIndex = 0;
+		 }
+		 else{ 
+		 	currentSlideIndex = nextSlideIndex;
+		 	nextSlideIndex++;
+		 }
+		 // console.log( 'currentSlideIndex'+' '+currentSlideIndex)
+		 // console.log(slides[nextSlideIndex])
+		 // console.log('nextSlideIndex'+' '+nextSlideIndex)
+	})
+	$('.slider-left-arrow>i').on('click',function(){
+		console.log("left")
+		slides[currentSlideIndex].classList.remove('slide-from-right')
+		slides[currentSlideIndex].classList.remove('slide-from-left')
+
+		slides[nextSlideIndex].classList.add('slide-from-right')
+		
+
+		
+		if(nextSlideIndex-1==-1){
+		 	currentSlideIndex = nextSlideIndex;
+		 	nextSlideIndex = slides.length-1;
+		 }
+		 else{ 
+		 	currentSlideIndex = nextSlideIndex;
+		 	nextSlideIndex--;
+		 }
+		 
+	})
+	console.log(slides)
+	playSlide();
+</script>
+</body>
+</html>
