@@ -148,10 +148,13 @@
 
 	let playSlide = function(){
 		slides[nextSlideIndex].classList.remove('fade-out')
+		slides[currentSlideIndex].classList.remove('slide-from-left')
+		slides[currentSlideIndex].classList.remove('slide-from-right')
+
 		slides[nextSlideIndex].classList.add('slide-from-left')
 		// slides[currentSlideIndex].classList.add('fade-out')
 
-		slides[currentSlideIndex].classList.remove('slide-from-left')
+		
 		
 		 if(nextSlideIndex+1==slides.length){
 		 	currentSlideIndex = nextSlideIndex;
