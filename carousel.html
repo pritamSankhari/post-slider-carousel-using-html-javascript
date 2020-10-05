@@ -146,6 +146,12 @@
 
 	slides[currentSlideIndex].classList.add('slide-from-left') 	
 
+	let sleep = function(n){
+		for(let i = 0;i<n*1000000;i++){
+			continue;
+		}
+	}
+
 	let playSlide = function(){
 		slides[nextSlideIndex].classList.remove('fade-out')
 		slides[currentSlideIndex].classList.remove('slide-from-left')
@@ -176,6 +182,7 @@
 	})
 
 	$('.simple-carousel').on('mouseleave',function(){
+		sleep(1000);
 		playSlide();
 	})
 
